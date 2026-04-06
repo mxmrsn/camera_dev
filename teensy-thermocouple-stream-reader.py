@@ -13,7 +13,7 @@ from tkinter.filedialog import asksaveasfilename
 PORT = '/dev/ttyACM0'
 BAUD = 115200
 OUTFILE = ''
-LOG_INTERVAL_SEC = 1
+LOG_INTERVAL_SEC = 30
 
 def main():
 
@@ -52,7 +52,7 @@ def main():
                     latest_data = data
                 now = time.time()
 
-                if latest_data:
+                if latest_data and (now - (teensy_t0 + latest_data['teensy_ms'] / 1000)) >= LOG_INTERVAL_SEC:
                     pc_timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
                     writer.writerow([pc_timestamp,
                                      latest_data['teensy_ms'],

@@ -9,7 +9,7 @@ CAM_INDEX = '/dev/video0'
 FRAME_WIDTH = 1280
 FRAME_HEIGHT = 720
 FPS = 30
-LOG_INTERVAL_SEC = 5
+LOG_INTERVAL_SEC = 30
 
 def main():
     start_time = datetime.now()
@@ -31,6 +31,7 @@ def main():
     last_capture_time = 0
     while True:
         ret, frame = cap.read()
+        frame = cv2.rotate(frame, cv2.ROTATE_180)
         if not ret:
             print("Error reading from camera")
             break
